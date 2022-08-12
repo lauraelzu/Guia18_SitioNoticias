@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Sitio de noticias</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div>
+            Sitio de noticias
+        </div>
+        <img src="egg.png">
+        
+         <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Visualizar</th>
+                </tr>
+            </thead>
+            <tbody th:each="noticia : ${noticias}">
+                <tr>
+                    <th scope="row" th:text="${noticia.titulo}"></th>
+                    <td th:text="${noticia.usuario.nombre}"></td>
+                    <td>
+                        <a th:href="@{/noticia/mostrar/__${noticia.id}__}"><i>Ver más</i></a>
+                    </td>
+                </tr> 
+               
+            </tbody>
+        </table>
+        
+    </body>
+</html>
