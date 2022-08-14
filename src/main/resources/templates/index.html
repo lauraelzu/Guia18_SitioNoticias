@@ -8,17 +8,50 @@
         <link rel="stylesheet" href="estilos/estilos.css">
     </head>
     <body>
-        <div>
-            Sitio de noticias
-        </div>
-        <img src="egg.png">
+        
+         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                
+            <nav class="navbar navbar-expand-sm bg-light">
+                <div class="container-fluid">
+                    <img class="w-25 p-3" src="egg.png">
+                    <a class="navbar-brand" href="#">Sitio de noticias</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Noticias
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/noticia/registrar">Publicar</a></li>
+                          <li><a class="dropdown-item" href="/noticia/editar">Editar</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Usuarios
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/usuario/registrar">Registrarse</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </header>     
+        
+       
+     
         
          <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Título</th>
                     <th scope="col">Usuario</th>
-                    <th scope="col">Visualizar</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody th:each="noticia : ${noticias}">

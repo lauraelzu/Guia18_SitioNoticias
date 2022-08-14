@@ -2,8 +2,6 @@ package com.egg.EggNews2.controladores;
 
 import com.egg.EggNews2.excepciones.ErrorServicio;
 import com.egg.EggNews2.servicios.UsuarioServicio;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,10 +24,10 @@ public class UsuarioControlador {
     
     @PostMapping("/guardar")
                          //atributos con el mismo nombre que las variables de los input de usuario_formulario.html
-    public String guardar(@RequestParam String idUsuario, @RequestParam String nombre, ModelMap modelo){ 
+    public String guardar(@RequestParam String dni, @RequestParam String nombre, ModelMap modelo){ 
 
         try {
-            usuarioServicio.crearUsuario(idUsuario, nombre);
+            usuarioServicio.crearUsuario(dni, nombre);
             modelo.put("exito","usuario creado correctamente");
         } catch (ErrorServicio ex) {
             modelo.put("error",ex.getMessage());

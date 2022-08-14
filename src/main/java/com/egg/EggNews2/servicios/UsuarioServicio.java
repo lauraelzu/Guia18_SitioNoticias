@@ -13,22 +13,22 @@ public class UsuarioServicio {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
     
-    public void crearUsuario(String idUsuario, String nombre) throws ErrorServicio{
+    public void crearUsuario(String dni, String nombre) throws ErrorServicio{
         
-        validar(idUsuario, nombre);
+        validar(dni, nombre);
         
         Usuario usuario = new Usuario();
-        usuario.setId(idUsuario);
+        usuario.setDni(dni);
         usuario.setNombre(nombre);
         
         usuarioRepositorio.save(usuario);
     }
     
-    public void modificarUsuario(String idUsuario, String nombre) throws ErrorServicio{
+    public void modificarUsuario(String dni, String nombre) throws ErrorServicio{
         
-        validar(idUsuario, nombre);
+        validar(dni, nombre);
         
-        Optional<Usuario> respuesta = usuarioRepositorio.findById(idUsuario);
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(dni);
         
         if(respuesta.isPresent()){
             Usuario usuario = respuesta.get();
@@ -37,9 +37,9 @@ public class UsuarioServicio {
         }      
     }
     
-    public void validar(String idUsuario, String nombre) throws ErrorServicio{
+    public void validar(String dni, String nombre) throws ErrorServicio{
         
-        if(idUsuario == null || idUsuario.isEmpty()){
+        if(dni == null || dni.isEmpty()){
             throw new ErrorServicio("Debe indicar su DNI como identificador de usuario");
         }
         if(nombre == null || nombre.isEmpty()){

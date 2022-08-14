@@ -5,7 +5,6 @@ import com.egg.EggNews2.entidades.Usuario;
 import com.egg.EggNews2.excepciones.ErrorServicio;
 import com.egg.EggNews2.repositorios.NoticiaRepositorio;
 import com.egg.EggNews2.repositorios.UsuarioRepositorio;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,8 +49,12 @@ public class NoticiaServicio {
         return noticias;
     }
     
+    public Noticia obtenerNoticia(Long idNoticia){
+           
+        return noticiaRepositorio.getOne(idNoticia);  
+    }
     
-    public Noticia mostrarNoticia(Long idNoticia){
+        public Noticia mostrarNoticia(Long idNoticia){
         Optional<Noticia> respuesta = noticiaRepositorio.findById(idNoticia);
         Noticia noticia =new Noticia();
         if(respuesta.isPresent()){
@@ -59,32 +62,20 @@ public class NoticiaServicio {
         }
         return noticia;
     }
-    
-    
+        
     @Transactional
-    public void modificarNoticia(Long idNoticia, String titulo, String cuerpo, String idUsuario) throws ErrorServicio{
+    public void modificarNoticia(Long id, String titulo, String cuerpo) throws ErrorServicio{
         
         validar(titulo, cuerpo);
-        if(idUsuario == null || idUsuario.isEmpty()){
-            throw new ErrorServicio("Debe indicar un autor de la noticia");
-        }
         
-        Optional<Noticia> respuestaNoticia = noticiaRepositorio.findById(idNoticia);
-        Noticia noticia = new Noticia();
-        
-        Optional<Usuario> respuestaUsuario = usuarioRepositorio.findById(idUsuario);
-        
-        if(respuestaUsuario.isPresent()){
-            Usuario usuario = respuestaUsuario.get();
-            noticia.setUsuario(usuario);
-        }
+        Optional<Noticia> respuestaNoticia = noticiaRepositorio.findById(id);
         
         if(respuestaNoticia.isPresent()){
+            Noticia noticia = respuestaNoticia.get();
             noticia.setTitulo(titulo);
-            noticia.setCuerpo(cuerpo);         
-        } 
-        
-        noticiaRepositorio.save(noticia);  
+            noticia.setCuerpo(cuerpo);  
+            noticiaRepositorio.save(noticia); 
+        }      
     }
     
     

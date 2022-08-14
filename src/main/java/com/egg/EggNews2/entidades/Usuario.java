@@ -7,18 +7,18 @@ import javax.persistence.Id;
 public class Usuario {
     
     @Id
-    private String id;
+    private String dni; 
     private String nombre;
 
     public Usuario() {
     }
 
-    public String getId() {
-        return id;
+    public String getDni() {
+        return dni;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getNombre() {
