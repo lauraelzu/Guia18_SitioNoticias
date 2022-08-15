@@ -34,6 +34,6 @@ public class UsuarioControlador {
             return "usuario_formulario.html";
         }
        
-        return "index.html";
+        return "redirect:../";
     }
 }

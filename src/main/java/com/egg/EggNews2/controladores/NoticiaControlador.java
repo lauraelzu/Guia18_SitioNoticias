@@ -5,8 +5,6 @@ import com.egg.EggNews2.excepciones.ErrorServicio;
 import com.egg.EggNews2.servicios.NoticiaServicio;
 import com.egg.EggNews2.servicios.UsuarioServicio;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,7 +38,7 @@ public class NoticiaControlador {
             modelo.put("error",ex.getMessage());
             return "noticia_formulario.html";
         }
-        return "index.html";
+        return "redirect:../";
     }
     
     
@@ -71,17 +69,17 @@ public class NoticiaControlador {
     public String modificarNoticia(@PathVariable Long id, String titulo, String cuerpo,ModelMap modelo){
         try {
             noticiaServicio.modificarNoticia(id, titulo, cuerpo);
-            return "index.html";
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
             return "noticia_modificar.html";
         }
+        return "redirect:../../";
     }
     
     @GetMapping("/eliminar/{id}")
     public String eliminarNoticia(@PathVariable Long id, ModelMap modelo){
         noticiaServicio.eliminarNoticia(id);
-        return "index.html";
+        return "redirect:../../";
     }
     
 }
