@@ -5,12 +5,17 @@ import com.egg.EggNews2.entidades.Usuario;
 import com.egg.EggNews2.excepciones.ErrorServicio;
 import com.egg.EggNews2.repositorios.NoticiaRepositorio;
 import com.egg.EggNews2.repositorios.UsuarioRepositorio;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;  //para la imagen
+
+import net.iharder.Base64; //****OJO!!!*** librería de Maven Repository no la que trae java.util
+
 
 @Service
 public class NoticiaServicio {
@@ -23,10 +28,10 @@ public class NoticiaServicio {
     
     
     @Transactional
-    public void crearNoticia(String titulo, String cuerpo, String idUsuario) throws ErrorServicio{
+    public void crearNoticia(String titulo, String cuerpo, MultipartFile imagen, String idUsuario) throws ErrorServicio, IOException{
         
-        validar(titulo, cuerpo);
-        
+        validar(titulo, cuerpo, imagen);
+             
         Optional<Usuario> respuesta =  usuarioRepositorio.findById(idUsuario);
         Usuario usuario = new Usuario();
         if(respuesta.isPresent()){
@@ -38,6 +43,9 @@ public class NoticiaServicio {
         Noticia noticia = new Noticia();
         noticia.setTitulo(titulo);
         noticia.setCuerpo(cuerpo);
+        //importar la librería de mvnrepository (ihader)
+        //--> en el throwssss agregar IOException que tiran estos métodos
+        noticia.setImagen(Base64.encodeBytes(imagen.getBytes())); //obtiene los bytes de la imagen y los convierte en String
         noticia.setFechaPublicacion(new Date());
         noticia.setUsuario(usuario);
         
@@ -54,7 +62,7 @@ public class NoticiaServicio {
         return noticiaRepositorio.getOne(idNoticia);  
     }
     
-        public Noticia mostrarNoticia(Long idNoticia){
+    public Noticia mostrarNoticia(Long idNoticia){
         Optional<Noticia> respuesta = noticiaRepositorio.findById(idNoticia);
         Noticia noticia =new Noticia();
         if(respuesta.isPresent()){
@@ -64,9 +72,9 @@ public class NoticiaServicio {
     }
         
     @Transactional
-    public void modificarNoticia(Long id, String titulo, String cuerpo) throws ErrorServicio{
+    public void modificarNoticia(Long id, String titulo, String cuerpo, MultipartFile imagen) throws ErrorServicio, IOException{
         
-        validar(titulo, cuerpo);
+        validar(titulo, cuerpo, imagen);
         
         Optional<Noticia> respuestaNoticia = noticiaRepositorio.findById(id);
         
@@ -74,6 +82,7 @@ public class NoticiaServicio {
             Noticia noticia = respuestaNoticia.get();
             noticia.setTitulo(titulo);
             noticia.setCuerpo(cuerpo);  
+            noticia.setImagen(Base64.encodeBytes(imagen.getBytes()));;
             noticiaRepositorio.save(noticia); 
         }      
     }
@@ -89,7 +98,7 @@ public class NoticiaServicio {
     }
     
     
-    public void validar(String titulo, String cuerpo) throws ErrorServicio{
+    public void validar(String titulo, String cuerpo, MultipartFile imagen) throws ErrorServicio{
         
         if(titulo == null || titulo.isEmpty()){
             throw new ErrorServicio("El título no puede ser nulo o vacío");
@@ -98,5 +107,8 @@ public class NoticiaServicio {
             throw new ErrorServicio("El cuerpo de la noticia no puede ser nulo o vacío");
         }
         
+        if(imagen.isEmpty()){
+            throw new ErrorServicio("Debe adjuntar una imagen");
+        }
     }
 }

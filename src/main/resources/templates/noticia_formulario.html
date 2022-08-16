@@ -19,13 +19,18 @@
         </header> 
         
         <div class="container-fluid m-5 contenedor">
-            <form class="formulario" action="/noticia/guardar" method="POST">
+                                               <!--enctype="multipart/form-data" para envio de imagenes-->
+            <form class="formulario" action="/noticia/guardar" method="POST" enctype="multipart/form-data">
                 
                 <div class="form-group my-3">
                     <input type="text" class="form-control" name="titulo" placeholder="Título de la noticia">
                 </div>
                 <div class="form-group my-3">
                     <textarea rows="10" class="form-control" name="cuerpo">Escribir la noticia...</textarea>
+                </div>
+                <!-- subir imagen -->
+                <div class="form-group my-3">
+                    <input type="file" class="form-control" name="imagen">
                 </div>
                 <div class="form-group my-3">
                     <input type="text" class="form-control" name="dni" placeholder="Ingrese su DNI sin puntos">

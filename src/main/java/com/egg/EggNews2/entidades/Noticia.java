@@ -1,6 +1,7 @@
 package com.egg.EggNews2.entidades;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,11 @@ public class Noticia {
     private Long id;
     private String titulo;
     private String cuerpo;
-    //private String foto;
+    
+    //agregar Dependency Base64(copiar código de mvnrepository.com convierte una imagen en bytes y luego en string)
+    //columnDefinition=MEDIUMTEXT para que soporte string grandes (mayores a 256 caracteres) 
+    @Column(nullable=false, columnDefinition="MEDIUMTEXT")
+    private String imagen;
     
     @Temporal(TemporalType.DATE)
     private Date fechaPublicacion;
@@ -67,6 +72,15 @@ public class Noticia {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+    
     
     
 }

@@ -17,7 +17,7 @@
             </header> 
         
         
-            <table class="table table-hover">
+            <!--<table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Título</th>
@@ -29,9 +29,6 @@
                 <tr>
                     <th scope="row" th:text="${noticia.titulo}"></th>
                     <td th:text="${noticia.usuario.nombre}"></td>
-                    <!--<td>
-                        <a th:href="@{/noticia/mostrar/__${noticia.id}__}"><i>Ver más</i></a>
-                    </td>-->
                     <td>
                         <a th:href="@{/noticia/modificar/__${noticia.id}__}"><i>Modificar</i></a>
                     </td>
@@ -39,12 +36,11 @@
                         <a th:href="@{/noticia/eliminar/__${noticia.id}__}"><i>Eliminar</i></a>
                     </td>
                 </tr> 
-               
             </tbody>
-        </table>
+        </table>-->
         
         <div class="card p-3 mb-2 bg-light text-dark" style="width: 18rem;" th:each="noticia : ${noticias}">
-          <img src="..." class="card-img-top" alt="...">
+          <img th:src="@{'data:image/jpeg;base64,'+${noticia.imagen}}" class="card-img-top w-75 p-3" alt="imagen noticia">
           <div class="card-body" >
             <h5 class="card-title" th:text="${noticia.titulo}"></h5>
             <p class="card-text" th:text="${noticia.usuario.nombre}"></p>
