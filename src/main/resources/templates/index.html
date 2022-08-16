@@ -66,20 +66,26 @@
         </table>-->
         
           <!--FORMATO CARD de BOOTSTRAP-->
-     
-        <div class="card p-3 mb-2 bg-light text-dark" style="width: 18rem;" th:each="noticia : ${noticias}">
-            <!-- encoder de HTML convierte el string en imagen -->
-          <img th:src="@{'data:image/jpeg;base64,'+${noticia.imagen}}" class="card-img-top" alt="imagen noticia">
-          <div class="card-body" >
-            <h5 class="card-title" th:text="${noticia.titulo}"></h5>
-            <p class="card-text" th:text="${noticia.usuario.nombre}"></p>
-            <p class="card-text" th:text="${noticia.fechaPublicacion}"></p>
-          </div>
-          <div class="card-body">
-            <a th:href="@{/noticia/mostrar/__${noticia.id}__}" class="card-link">Leer más</a>
-          </div>
+        <div class="container">  
+            <div class="row mt-4">
+                
+                    <div class="card shadow  p-3 mb-3 bg-light text-dark" style="width: 18rem;" th:each="noticia : ${noticias}">
+                        <!-- encoder de HTML convierte el string en imagen -->
+                      <img th:src="@{'data:image/jpeg;base64,'+${noticia.imagen}}" class="card-img-top" alt="imagen noticia">
+                      <div class="card-body" >
+                        <h4 class="card-title" th:text="${noticia.titulo}"></h4>
+                        <div align="right" class="card-text" >
+                            <p><i>Por: <span th:text = "${noticia.usuario.nombre}"></span></i></p>
+                            <p><i>Publicado: <span th:text = "${noticia.fechaPublicacion}"></span></i></p>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <a th:href="@{/noticia/mostrar/__${noticia.id}__}" class="card-link">Leer más</a>
+                      </div>
+                    </div>
+                  
+            </div>
         </div>
-      
        
             <div th:if="${exito != null}" class="card text-white bg-succes mb-3 mt-3 mensajeExito">
                  <div class="card-body">

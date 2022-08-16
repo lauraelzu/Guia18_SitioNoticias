@@ -13,7 +13,9 @@
                 <div class="container-fluid">
                     <img class="w-25 p-3" src="../../egg.png" alt="EggNews">
                     <a class="navbar-brand" href="#">Noticia completa</a>
-                    <a class="navbar-brand" href="../../"> Inicio </a>
+                    <a class="navbar-brand" href="../../"> 
+                        <button type="button" class="btn btn-outline-secondary">Inicio</button>
+                    </a>
                 </div>
              </nav>
         </header>     
@@ -23,11 +25,14 @@
             <h1><div class="card-header" th:text = "${noticia.titulo}">
                 </div>
             </h1>
-            <img th:src="@{'data:image/jpeg;base64,'+${noticia.imagen}}" class="card-img-top w-75 p-3" alt="imagen noticia">
+                                 <!-- mx-auto => centrar -->
+            <img class="card-img-top p-3 mx-auto" style="width: 50%; height: 50%;" th:src="@{'data:image/jpeg;base64,'+${noticia.imagen}}" alt="imagen noticia">
             <div class="card-body">
                <p class="card-text" th:text = "${noticia.cuerpo}"></p>
             </div>
-            <div align="right" class="card-footer text-muted" ><span><i>Por: <span th:text = "${noticia.usuario.nombre}"></span></i></span>
+            <div align="right" class="card-footer text-muted" >
+                <p><i>Por: <span th:text = "${noticia.usuario.nombre}"></span></i></p>
+                <p><i>Publicado: <span th:text = "${noticia.fechaPublicacion}"></span></i></p>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
